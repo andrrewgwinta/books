@@ -13,11 +13,11 @@ class DialogAuthorChoice extends StatefulWidget {
   final AuthorListType authorListType;
   final String caption;
 
-  DialogAuthorChoice({
+  DialogAuthorChoice({Key? key,
     required this.authorListType,
     required this.author,
     this.caption = 'выбираем автора',
-    required this.pressOK});
+    required this.pressOK}) : super(key: key);
 
   @override
   State<DialogAuthorChoice> createState() => _DialogAuthorChoiceState();

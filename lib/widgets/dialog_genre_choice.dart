@@ -1,22 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 import '../providers/books.dart';
-
 import '../widgets/genre_list_widget.dart';
 
-class DialogGenreChoise extends StatelessWidget {
+class DialogGenreChoice extends StatelessWidget {
   final Book book;
   final void Function() pressOK;
 
-  DialogGenreChoise({required this.book, required this.pressOK});
+  const DialogGenreChoice({Key? key, required this.book, required this.pressOK})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return SimpleDialog(
-      title: Text('выбираем жанры'),
+      title: const Text('выбираем жанры'),
       children: [
-        Container(
+        SizedBox(
           width: 300,
           height: 200,
           // MediaQuery.of(context).size.height -
@@ -26,7 +25,7 @@ class DialogGenreChoise extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            SizedBox(
+            const SizedBox(
               width: 20,
             ),
             Expanded(
@@ -35,9 +34,9 @@ class DialogGenreChoise extends StatelessWidget {
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
-                  child: Text('отмена')),
+                  child: const Text('отмена')),
             ),
-            SizedBox(
+            const SizedBox(
               width: 10,
             ),
             Expanded(
@@ -45,9 +44,9 @@ class DialogGenreChoise extends StatelessWidget {
               child: ElevatedButton(
                   //onPressed: ()=>pressOK(),
                   onPressed: pressOK,
-                  child: Text('запомнить')),
+                  child: const Text('запомнить')),
             ),
-            SizedBox(
+            const SizedBox(
               width: 20,
             ),
           ],

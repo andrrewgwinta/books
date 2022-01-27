@@ -3,7 +3,7 @@ import 'package:flutter/rendering.dart';
 
 import '../constants.dart';
 
-typedef void OnWidgetSizeChange(Size size);
+typedef OnWidgetSizeChange = void Function(Size size);
 
 class MeasureSizeRenderObject extends RenderProxyBox {
   late Size oldSize;

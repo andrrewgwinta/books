@@ -8,6 +8,12 @@ enum ActionType {
   atInsert,
 }
 
+enum FilterActualType {
+  fatNone,
+  fatActual,
+  fatArchive,
+}
+
 enum AuthorListType {
   altAll,
   altActual,

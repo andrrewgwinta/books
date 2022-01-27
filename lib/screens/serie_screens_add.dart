@@ -33,9 +33,8 @@ class _AddSeriesScreenState extends State<AddSeriesScreen> {
 
   @override
   void dispose() {
-    super.dispose();
     _controllerName.dispose();
-    //_controllerOrig.dispose();
+    super.dispose();
   }
 
   void pressOk() {

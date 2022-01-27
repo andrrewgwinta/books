@@ -112,6 +112,17 @@ class Authors extends ChangeNotifier {
     }
   }
 
+  List<Author> getFilteredAuthors(String s){
+    if (s=='') {
+      return _items; 
+    } 
+    else {
+      //List<Author> result = [];
+      return [..._items.where((element) => element.nameRus.toUpperCase().contains(s.toUpperCase()))];   
+      //return result;
+    }
+  }
+  
   Future<void> loadAuthors() async {
     _items = [];
     final url = Uri.parse('${prefixURL}get_author.php');

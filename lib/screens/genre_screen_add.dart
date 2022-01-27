@@ -27,8 +27,8 @@ class _AddGenreScreenState extends State<AddGenreScreen> {
 
   @override
   void dispose() {
-    super.dispose();
     _controller.dispose();
+    super.dispose();
   }
 
   void pressOk(){

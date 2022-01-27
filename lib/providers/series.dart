@@ -84,7 +84,7 @@ class SeriesItem {
     //only NAME
     final url =
         Uri.parse('${prefixURL}do_update_series_name.php?name=$name&id=$id');
-    print(url);
+    //print(url);
     try {
       final response = await http.get(url);
       //прочитаем новый pk c сервера и исправим его здесь

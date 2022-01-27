@@ -31,9 +31,9 @@ class _AddAuthorScreenState extends State<AddAuthorScreen> {
 
   @override
   void dispose() {
-    super.dispose();
     _controllerRus.dispose();
     _controllerOrig.dispose();
+    super.dispose();
   }
 
   void pressOk(){

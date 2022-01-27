@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../constants.dart';
 
 class FilterData {
   String fltName;
@@ -10,7 +11,7 @@ class FilterData {
   String fltGenres;
   String fltState;
   String fltSeries;
-  bool fltActual;
+  FilterActualType fltActual;
   bool fltAuthorActual;
   bool fltExpandedState;
 
@@ -20,7 +21,7 @@ class FilterData {
     this.fltGenres = '',
     this.fltState = '',
     this.fltSeries = '',
-    this.fltActual = true,
+    this.fltActual = FilterActualType.fatNone,
     this.fltAuthorActual = true,
     this.fltExpandedState = false,
   });
@@ -36,7 +37,7 @@ class FilterData {
         'fltGenres': fltGenresForServer,
          'fltSeries':fltSeries,
         'fltState': fltExpandedState?fltState:'',
-        'act': fltActual ? '1' : '0',
+        'act': fltActual.index.toString(),
       };
 
   String get fltGenresForServer {
@@ -52,7 +53,7 @@ class Filter with ChangeNotifier {
       fltAuthor: '',
       fltGenres: '',
       fltState: '',
-      fltActual: true,
+      fltActual: FilterActualType.fatNone,
       fltAuthorActual: true);
 
   void clearFilter() {
@@ -60,7 +61,7 @@ class Filter with ChangeNotifier {
     filter.fltAuthor = '';
     filter.fltGenres = '';
     filter.fltState = '';
-    filter.fltActual = true;
+    filter.fltActual = FilterActualType.fatNone;
     filter.fltExpandedState = false;
   }
 
@@ -73,7 +74,7 @@ class Filter with ChangeNotifier {
         fltAuthor: '',
         fltGenres: '',
         fltState: '',
-        fltActual: true,
+        fltActual: FilterActualType.fatNone,
         fltAuthorActual: true,
         fltExpandedState: false);
 
@@ -86,7 +87,7 @@ class Filter with ChangeNotifier {
             fltAuthor: extractedFilterData['fltAuthor'].toString(),
             fltGenres: extractedFilterData['fltGenres'].toString(),
             fltState: extractedFilterData['fltState'].toString(),
-            fltActual: (extractedFilterData['fltActual'] == 'true'),
+            fltActual: (extractedFilterData['fltActual'] == 0) ? FilterActualType.fatNone : (extractedFilterData['fltActual'] == 1) ? FilterActualType.fatActual  :  FilterActualType.fatArchive,
             fltAuthorActual: true,
             fltExpandedState:
                 (extractedFilterData['fltExpandedState'] == 'true'));
@@ -105,7 +106,7 @@ class Filter with ChangeNotifier {
       'fltAuthor': filter.fltAuthor,
       'fltGenres': filter.fltGenres,
       'fltState': filter.fltState,
-      'fltActual': filter.fltActual.toString(),
+      'fltActual': filter.fltActual.index,
       'fltExpandedState': filter.fltExpandedState.toString(),
     });
     prefs.setString('filterData', filterData);

@@ -6,7 +6,7 @@ import '../../providers/genres.dart';
 class GenreCheckList extends StatefulWidget {
   String valueString = '';
 
-  GenreCheckList(this.valueString);
+  GenreCheckList(this.valueString, {Key? key}) : super(key: key);
 
   @override
   State<GenreCheckList> createState() => _GenreCheckListState();

@@ -65,7 +65,6 @@ class _FilterDrawerState extends State<FilterDrawer> {
               // IconButton(onPressed: (){
               //   _controllerName.text = '';
               // }, icon: const Icon(Icons.cancel_rounded, color: kInputColor,)),
-
             ]),
             const SizedBox(
               height: 5,
@@ -170,10 +169,16 @@ class _FilterDrawerState extends State<FilterDrawer> {
                       padding: const EdgeInsets.symmetric(horizontal: 4.0),
                       child: ElevatedButton(
                           onPressed: () {
-                            filterProvider.clearFilter();
-                            genres.setCheckedValue('');
-                            filterProvider.saveFilterData().then((value) =>
-                                Navigator.of(context).pushNamed('/'));
+                            setState(() {
+                              filterProvider.clearFilter();
+                              genres.setCheckedValue('');
+                            });
+                            //выход с пустым фильтром
+                            // filterProvider.saveFilterData().then((value) =>
+                            //     Navigator.of(context).pushNamed('/'));
+
+                            //фильтр просто сбрасывается, выход по "готово"
+                            //filterProvider.saveFilterData();
                           },
                           child: const Text('сброс')),
                     )),
@@ -206,7 +211,7 @@ class FilterStateRadio extends StatelessWidget {
   final void Function() onPressIcon;
 
   //const FilterStateRadio({Key? key}) : super(key: key);
-  FilterStateRadio({required this.filter, required this.onPressIcon});
+  const FilterStateRadio({required this.filter, required this.onPressIcon});
 
   @override
   Widget build(BuildContext context) {
@@ -233,14 +238,14 @@ class FilterStateRadio extends StatelessWidget {
 class FilterActualRadioBar extends StatefulWidget {
   final FilterData filter;
 
-  FilterActualRadioBar(this.filter);
+  const FilterActualRadioBar(this.filter, {Key? key}) : super(key: key);
 
   @override
   State<FilterActualRadioBar> createState() => _FilterActualRadioBarState();
 }
 
 class _FilterActualRadioBarState extends State<FilterActualRadioBar> {
-  void onActualToggle(bool? value) {
+  void onActualToggle(FilterActualType? value) {
     setState(() {
       widget.filter.fltActual = value!;
     });
@@ -248,30 +253,39 @@ class _FilterActualRadioBarState extends State<FilterActualRadioBar> {
 
   @override
   Widget build(BuildContext context) {
-    TextStyle radioStyle(bool value) {
+    TextStyle radioStyle(FilterActualType value) {
       return (widget.filter.fltActual == value)
           ? const TextStyle()
           : kTextStyleLabel;
     }
 
     return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
-          'текущие',
-          style: radioStyle(true),
+          'все',
+          style: radioStyle(FilterActualType.fatNone),
         ),
-        Radio<bool>(
-          value: true,
+        Radio<FilterActualType>(
+          value: FilterActualType.fatNone,
           groupValue: widget.filter.fltActual,
           onChanged: onActualToggle,
         ),
-        Expanded(child: Container()),
         Text(
-          'aрхивные',
-          style: radioStyle(false),
+          'текущие',
+          style: radioStyle(FilterActualType.fatActual),
         ),
-        Radio<bool>(
-          value: false,
+        Radio<FilterActualType>(
+          value: FilterActualType.fatActual,
+          groupValue: widget.filter.fltActual,
+          onChanged: onActualToggle,
+        ),
+        Text(
+          'aрхив',
+          style: radioStyle(FilterActualType.fatArchive),
+        ),
+        Radio<FilterActualType>(
+          value: FilterActualType.fatArchive,
           groupValue: widget.filter.fltActual,
           onChanged: onActualToggle,
         ),

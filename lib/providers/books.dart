@@ -120,8 +120,8 @@ class Book {
   }
 
   void modifyOnServer() async {
-    final ActionType actionType =
-        (id == '0') ? ActionType.atInsert : ActionType.atUpdate;
+    // final ActionType actionType =
+    //     (id == '0') ? ActionType.atInsert : ActionType.atUpdate;
     final Map<String, dynamic> queryParam = toJson();
     final String queryString = Uri(queryParameters: queryParam).query;
     final url = Uri.parse('${prefixURL}do_update_book.php?$queryString');

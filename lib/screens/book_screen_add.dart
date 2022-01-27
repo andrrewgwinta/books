@@ -37,11 +37,11 @@ class _BookModifyScreenState extends State<BookModifyScreen> {
 
   @override
   void dispose() {
-    super.dispose();
     _controllerNameRus.dispose();
     _controllerSeriesSeq.dispose();
     _controllerAuthor.dispose();
     _controllerNote.dispose();
+    super.dispose();
   }
 
   @override
@@ -246,7 +246,7 @@ class _BookModifyScreenState extends State<BookModifyScreen> {
                             showDialog(
                                 context: context,
                                 builder: (context) {
-                                  return DialogGenreChoise(
+                                  return DialogGenreChoice(
                                       book: book,
                                       pressOK: () {
                                         setState(() {
