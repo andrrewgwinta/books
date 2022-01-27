@@ -38,21 +38,6 @@ class _BooksOverviewScreenState extends State<BooksOverviewScreen> {
     super.initState();
   }
 
-  @override
-  void didChangeDependencies() async {
-    super.didChangeDependencies();
-    //однократно грузить здесь, сбрасывая флаг logonInit
-    //print(global.isFirst.toString());
-    if (global.isFirst) {
-      await Provider.of<Filter>(context, listen: false).readFilterData().then((_) => print('filter loaded'));
-      await Provider.of<Authors>(context, listen: false).loadAuthors();
-      await Provider.of<Genres>(context, listen: false).loadGenres();
-      await Provider.of<ReadStates>(context, listen: false).loadReadState();
-      await Provider.of<Series>(context, listen: false).loadSeries();
-    }
-    global.isFirst = false;
-    //print(global.isFirst.toString());
-  }
 
   TextStyle itemStyle =
       const TextStyle(color: Colors.lightBlueAccent, fontSize: 16);

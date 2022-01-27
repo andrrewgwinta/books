@@ -28,7 +28,7 @@ class BookModifyScreen extends StatefulWidget {
 
 class _BookModifyScreenState extends State<BookModifyScreen> {
   bool isInit = true;
-  late Book book;
+  Book book = Book(id:'');
 
   final TextEditingController _controllerNameRus = TextEditingController();
   final TextEditingController _controllerSeriesSeq = TextEditingController();
@@ -132,7 +132,7 @@ class _BookModifyScreenState extends State<BookModifyScreen> {
                               width: 100,
                               decoration: kInputBoxDecoration,
                               child: TextField(
-                                style: TextStyle(fontSize: 20),
+                                style: const TextStyle(fontSize: 20),
                                 textAlign: TextAlign.center,
                                 keyboardType: TextInputType.number,
                                 //textCapitalization: TextCapitalization.sentences,

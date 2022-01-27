@@ -18,15 +18,17 @@ import '../providers/authors.dart';
 import '../providers/series.dart';
 
 import '../providers/filter.dart';
-//import '../globals.dart' as global;
+import '../globals.dart' as global;
 import '../helpers/custom_route.dart';
-
+import '../launch_screen.dart';
 
 void main() {
-  runApp(BookApp());
+  runApp(const BookApp());
 }
 
 class BookApp extends StatefulWidget {
+  const BookApp({Key? key}) : super(key: key);
+
 
   @override
   _BookAppState createState() => _BookAppState();
@@ -67,12 +69,13 @@ class _BookAppState extends State<BookApp> {
           ),
 
           routes: {
-            '/': (ctx) => const BooksOverviewScreen(),
+            '/': (ctx) => (global.isFirst)? const LaunchScreen() : const BooksOverviewScreen(),
             GenreScreen.routeName : (ctx) => const GenreScreen(),
             ReadStateScreen.routeName : (ctx) => const ReadStateScreen(),
             BookModifyScreen.routeName : (ctx) => const BookModifyScreen(),
             AuthorScreen.routeName : (ctx) => const AuthorScreen(),
             SeriesScreen.routeName : (ctx) => const SeriesScreen(),
+            BooksOverviewScreen.routeName : (ctx) => const BooksOverviewScreen(),
 
           },
         ),
