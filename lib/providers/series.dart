@@ -102,6 +102,15 @@ class Series with ChangeNotifier {
 
   //List<SeriesItem> get itemsActual => [..._items.where((element) => element.actual)];
 
+  List<SeriesItem> getFilteredSeries(String s){
+    if (s=='') {
+      return _items;
+    }
+    else {
+      return [..._items.where((element) => element.name.toUpperCase().contains(s.toUpperCase()))];
+    }
+  }
+
   Future<void> loadSeries() async {
     _items = [];
     final url = Uri.parse('${prefixURL}get_series.php');

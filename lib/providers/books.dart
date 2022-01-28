@@ -132,6 +132,7 @@ class Book {
       //if (actionType == ActionType.atInsert) {
       dynamic infoJson = json.decode(response.body);
       id = infoJson['workId'].toString();
+      //print('id in modifyOnServer $id');
       //}
       authorId = infoJson['authorId'].toString();
     } catch (error) {
@@ -208,7 +209,7 @@ class Books extends ChangeNotifier {
 
   Book clone(Book source, [String suffix = '']) {
     return Book(
-      id: source.id,
+      id: '0',
       nameRus: '${source.nameRus} $suffix',
       nameOriginal: source.nameOriginal,
       grade: source.grade,

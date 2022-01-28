@@ -9,6 +9,7 @@ import '../providers/authors.dart';
 import '../providers/filter.dart';
 import '../screens/author_screen_add.dart';
 import '../widgets/dialog_author_choice.dart';
+import '../screens/books_screen_overview.dart';
 
 class AuthorScreen extends StatefulWidget {
   static const routeName = '/author_nsi';
@@ -25,21 +26,23 @@ class _AuthorScreenState extends State<AuthorScreen> {
   Timer? searchDebounce;
   final TextEditingController _controllerSearch = TextEditingController();
 
-  void modifyRecord(
-    BuildContext context,
-    Author author,
-  ) {
+  void modifyRecord(BuildContext context,
+      Author author,) {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
       //вот так клавиатура не будет заслонять вылезший БоттомШит
-      builder: (BuildContext context) => SingleChildScrollView(
-        padding:
-            EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
-        child: AddAuthorScreen(
-          author: author,
-        ),
-      ),
+      builder: (BuildContext context) =>
+          SingleChildScrollView(
+            padding:
+            EdgeInsets.only(bottom: MediaQuery
+                .of(context)
+                .viewInsets
+                .bottom),
+            child: AddAuthorScreen(
+              author: author,
+            ),
+          ),
     );
   }
 
@@ -157,10 +160,10 @@ class _AuthorScreenState extends State<AuthorScreen> {
                         searchDebounce?.cancel();
                         searchDebounce =
                             Timer(const Duration(milliseconds: 500), () {
-                          setState(() {
-                            //reread authorList
-                          });
-                        });
+                              setState(() {
+                                //reread authorList
+                              });
+                            });
                       },
                     ),
                   ),
@@ -184,9 +187,9 @@ class _AuthorScreenState extends State<AuthorScreen> {
                   itemBuilder: (ctx, index) {
                     return AuthorCard(authorsData[index], isJoinMode,
                         //тап на редактироваии
-                        () {
-                      modifyRecord(context, authorsData[index]);
-                    });
+                            () {
+                          modifyRecord(context, authorsData[index]);
+                        });
                   }),
             ),
           ],
@@ -210,12 +213,12 @@ class _AuthorCardState extends State<AuthorCard> {
   @override
   Widget build(BuildContext context) {
     final String question =
-        (widget.author.actual) ? 'Удаляем' : 'Восстанавливаем';
+    (widget.author.actual) ? 'Удаляем' : 'Восстанавливаем';
     return Dismissible(
       //*********************
       background: Container(
         color:
-            widget.author.actual ? Colors.blueAccent : Colors.lightBlueAccent,
+        widget.author.actual ? Colors.blueAccent : Colors.lightBlueAccent,
         child: Icon(
           widget.author.actual ? Icons.delete : Icons.restore_from_trash,
           color: Colors.white,
@@ -263,7 +266,7 @@ class _AuthorCardState extends State<AuthorCard> {
           onTap: widget.joinMode ? null : widget.onEditTap,
           child: Card(
             shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
             elevation: 8,
             shadowColor: Colors.deepPurple,
             //color: Colors.grey,
@@ -279,41 +282,43 @@ class _AuthorCardState extends State<AuthorCard> {
               subtitle: (widget.author.nameOrig == '')
                   ? null
                   : Row(
-                      children: [
-                        const Text(
-                          'ориг',
-                          style: kTextStyleLabel,
-                        ),
-                        const SizedBox(
-                          width: 5,
-                        ),
-                        Text(
-                          widget.author.nameOrig,
-                          style: const TextStyle(fontSize: 16),
-                        ),
-                      ],
-                    ),
+                children: [
+                  const Text(
+                    'ориг',
+                    style: kTextStyleLabel,
+                  ),
+                  const SizedBox(
+                    width: 5,
+                  ),
+                  Text(
+                    widget.author.nameOrig,
+                    style: const TextStyle(fontSize: 16),
+                  ),
+                ],
+              ),
               trailing: (widget.joinMode)
                   ? Checkbox(
-                      value: widget.author.checkState,
-                      onChanged: (value) {
-                        setState(() {
-                          widget.author.checkState = value!;
-                        });
-                      },
-                    )
+                value: widget.author.checkState,
+                onChanged: (value) {
+                  setState(() {
+                    widget.author.checkState = value!;
+                  });
+                },
+              )
                   : IconButton(
-                      onPressed: () {
-                        final fd = Provider.of<Filter>(context, listen: false);
-                        fd.clearFilter();
-                        fd.filter.fltAuthor = widget.author.nameRus;
-                        fd.filter.fltActual = FilterActualType.fatNone;
-                        Navigator.of(context).pushNamed('/');
-                      },
-                      icon: const Icon(
-                        Icons.search,
-                        color: Colors.blue,
-                      )),
+                onPressed: () {
+                  final fd = Provider.of<Filter>(context, listen: false);
+                  fd.clearFilter();
+                  fd.filter.fltAuthor = widget.author.nameRus;
+                  fd.filter.fltActual = FilterActualType.fatNone;
+                  Navigator.of(context).pushNamed(
+                      BooksOverviewScreen.routeName);
+                },
+                icon: const Icon(
+                  Icons.navigate_next,
+                  color: Colors.blue,
+                ),
+              ),
             ),
           ),
         ),

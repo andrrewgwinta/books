@@ -6,10 +6,9 @@ import '../constants.dart';
 import '../providers/series.dart';
 
 class AddSeriesScreen extends StatefulWidget {
-  SeriesItem serie;
+  final SeriesItem series;
 
-  AddSeriesScreen({Key? key, required this.serie})
-      : super(key: key);
+  const AddSeriesScreen({Key? key, required this.series}) : super(key: key);
 
   @override
   State<AddSeriesScreen> createState() => _AddSeriesScreenState();
@@ -25,10 +24,10 @@ class _AddSeriesScreenState extends State<AddSeriesScreen> {
   @override
   void initState() {
     super.initState();
-    _controllerName.text = widget.serie.name;
+    _controllerName.text = widget.series.name;
     //_controllerOrig.text = widget.author.nameOrig;
     actionType =
-        (widget.serie.id == '0' ? ActionType.atInsert : ActionType.atUpdate);
+        (widget.series.id == '0' ? ActionType.atInsert : ActionType.atUpdate);
   }
 
   @override
@@ -39,11 +38,10 @@ class _AddSeriesScreenState extends State<AddSeriesScreen> {
 
   void pressOk() {
     if (actionType == ActionType.atUpdate) {
-       Provider.of<Series>(context, listen: false)
-           .updateSeries(widget.serie);
+      Provider.of<Series>(context, listen: false).updateSeries(widget.series);
     } else {
-        Provider.of<Series>(context, listen: false)
-            .createSeries(context, widget.serie);
+      Provider.of<Series>(context, listen: false)
+          .createSeries(context, widget.series);
     }
     Navigator.of(context).pop();
   }
@@ -68,9 +66,11 @@ class _AddSeriesScreenState extends State<AddSeriesScreen> {
                     fontSize: 30, color: Colors.lightBlueAccent),
               ),
               Text(
-                widget.serie.authorName,
-                style:
-                    const TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 18),
+                widget.series.authorName,
+                style: const TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18),
               ),
               //const Text('название серии', style: kTextStyleLabel,),
               Container(
@@ -82,23 +82,10 @@ class _AddSeriesScreenState extends State<AddSeriesScreen> {
                   textAlign: TextAlign.start,
                   textCapitalization: TextCapitalization.sentences,
                   onChanged: (value) {
-                    widget.serie.name = value;
+                    widget.series.name = value;
                   },
                 ),
               ),
-              // const Text('на языке оригинала', style: kTextStyleLabel,),
-              // Container(
-              //   decoration: kInputBoxDecoration,
-              //   child: TextField(
-              //     decoration: kInputFieldDecoration,
-              //     controller: _controllerOrig,
-              //     autofocus: true,
-              //     textAlign: TextAlign.center,
-              //     onChanged: (value) {
-              //       widget.author.nameOrig = value;
-              //     },
-              //   ),
-              // ),
 
               API.answerButtons(context, pressOk),
             ]),

@@ -14,7 +14,7 @@ import '../screens/author_screen.dart';
 import '../screens/book_screen_add.dart';
 import '../screens/genre_screen.dart';
 import '../screens/read_state_screen.dart';
-import '../screens/serie_screens_add.dart';
+import '../screens/series_screen_add.dart';
 import '../screens/series_screen.dart';
 import '../widgets/book_card_widget.dart';
 import '../widgets/filter_drawer.dart';
@@ -84,7 +84,7 @@ class _BooksOverviewScreenState extends State<BooksOverviewScreen> {
                 builder: (BuildContext context) => SingleChildScrollView(
                   padding: EdgeInsets.only(
                       bottom: MediaQuery.of(context).viewInsets.bottom),
-                  child: AddSeriesScreen(serie: newSeries),
+                  child: AddSeriesScreen(series: newSeries),
                 ),
               ).then((value) => setState(() {
                     isSeriesMode = false;

@@ -114,12 +114,10 @@ class Authors extends ChangeNotifier {
 
   List<Author> getFilteredAuthors(String s){
     if (s=='') {
-      return _items; 
-    } 
+      return _items;
+    }
     else {
-      //List<Author> result = [];
-      return [..._items.where((element) => element.nameRus.toUpperCase().contains(s.toUpperCase()))];   
-      //return result;
+      return [..._items.where((element) => element.nameRus.toUpperCase().contains(s.toUpperCase()))];
     }
   }
   
